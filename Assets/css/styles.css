@@ -1,0 +1,147 @@
+body {
+    height: 100vh;
+    width: 100vw;
+}
+
+.background-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-image: url("../images/horizontal-abstract\ android-iphone-desktop-hd-backgrounds-wallpapers-1080p-4k-halz4-1920x1080.jpg");
+    margin: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+    height: 90%;
+}
+
+
+.weather {
+    margin: auto 0;
+    width: 65%;
+    height: 90%;
+}
+
+.current-day {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 65%;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.534);
+    padding: 7% 10%;
+    border-style: solid;
+    border-color: white;
+    border-width: 1px;
+}
+
+.city-weather {
+    width: 100%;
+}
+
+.city-weather h1 {
+    font-size: 250%;
+    height: 30%;
+}
+
+.city-weather div {
+    display: grid;
+    height: 70%;
+}
+
+.city-weather p {
+    margin: auto 0;
+}
+
+.search {
+    width: 100%;
+    margin-top: 10px;
+}
+
+form {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: solid;
+    padding-bottom: 5%;
+    width: 100%;
+}
+
+.form-container {
+    height: 30%;
+}
+
+.form-input {
+    padding: 6px 8px;
+    border-radius: 5px 0 0 5px;
+    width: 73%;
+    background-color: rgba(255, 255, 255, 0);
+    color: black;
+}
+
+.form-btn {
+    padding: 6px 3px;
+    background-color: rgba(78, 170, 231, 0.897);
+    border-radius: 0 5px 5px 0;
+    width: 25%;
+}
+
+.options {
+    display: grid;
+    height: 70%;
+}
+
+.search button {
+    margin: 5px 0;
+    border-radius: 5px;
+    border-width: 1px;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.five-days {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 30%;
+    margin-top: 3.3%;
+    border-radius: 15px;
+}
+
+.five-days div {
+    display: grid;
+    width: 19%;
+    height: 100%;
+    border-radius: 15px;
+    padding: 3% 2%;
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
+    color: white;
+}
+
+.five-days h2 {
+    font-size: 140%;
+}
+
+.five-days p {
+    margin: 7%;
+}
+
+.cloudy {
+    background-color: rgb(255, 200, 90);
+}
+
+.sunny {
+    background-color: rgb(123, 206, 225);
+}
+
+.storm {
+    background-color: rgb(32, 36, 90);
+}
