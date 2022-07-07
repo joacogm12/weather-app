@@ -23,11 +23,22 @@ body {
     height: 90%;
 }
 
-
 .weather {
     margin: auto 0;
-    width: 65%;
+    width: 70%;
     height: 90%;
+}
+
+.title-container {
+    display: flex;
+    justify-content: center;
+}
+
+.title-container h1 {
+    color: rgb(30, 43, 85);
+    top: 13px;
+    position: absolute;
+    font-size: 500%;
 }
 
 .current-day {
@@ -44,16 +55,18 @@ body {
 }
 
 .city-weather {
+    color: rgb(30, 43, 85);
     width: 100%;
 }
 
 .city-weather h1 {
     font-size: 250%;
-    height: 30%;
+    height: 55px;
 }
 
 .city-weather div {
     display: grid;
+    grid-template-columns: repeat(2, auto);
     height: 70%;
 }
 
@@ -62,47 +75,78 @@ body {
 }
 
 .search {
+    color: rgb(30, 43, 85);
     width: 100%;
     margin-top: 10px;
 }
 
+.form-container {
+    height: 55px;
+}
+
 form {
+    color: rgb(30, 43, 85);
     display: flex;
     justify-content: space-around;
     border-bottom: solid;
+    border-width: 2px;
     padding-bottom: 5%;
     width: 100%;
 }
 
-.form-container {
-    height: 30%;
-}
-
 .form-input {
+    color: rgb(30, 43, 85);
     padding: 6px 8px;
-    border-radius: 5px 0 0 5px;
-    width: 73%;
-    background-color: rgba(255, 255, 255, 0);
-    color: black;
-}
-
-.form-btn {
-    padding: 6px 3px;
-    background-color: rgba(78, 170, 231, 0.897);
-    border-radius: 0 5px 5px 0;
-    width: 25%;
+    border-radius: 5px;
+    width: 100%;
+    background-color: rgba(30, 43, 85, 0);
+    border-width: 2px;
+    border-color: rgb(30, 43, 85);
 }
 
 .options {
-    display: grid;
     height: 70%;
+    width: 100%;
 }
 
-.search button {
-    margin: 5px 0;
+
+
+div.scroll {
+    overflow: auto;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    margin-left: 10px;
+    padding-left: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    padding-left: 10px;
+    background: rgba(30, 43, 85, 0.151);
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(30, 43, 85);
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(30, 43, 85);
+}
+
+.search .options button {
+    width: 95%;
+    height: 20px;
+    color: rgb(30, 43, 85);
+    margin: 5px 2.5%;
     border-radius: 5px;
     border-width: 1px;
-    background-color: rgba(255, 255, 255, 0);
+    background-color: rgba(30, 43, 85, 0);
 }
 
 .five-days {
@@ -110,36 +154,42 @@ form {
     justify-content: space-between;
     width: 100%;
     height: 30%;
-    margin-top: 3.3%;
-    border-radius: 15px;
+    margin-top: 3%;
 }
 
 .five-days div {
     display: grid;
-    width: 19%;
+    grid-template-columns: repeat(2, auto);
+    width: 150px;
     height: 100%;
     border-radius: 15px;
-    padding: 3% 2%;
+    padding: 7px;
     border-style: solid;
     border-width: 1px;
     border-color: white;
     color: white;
+    margin: 0 5px;
+    align-items: center;
 }
 
 .five-days h2 {
-    font-size: 140%;
+    font-size: 110%;
 }
 
 .five-days p {
-    margin: 7%;
+    margin: 5px 0;
 }
 
-.cloudy {
-    background-color: rgb(255, 200, 90);
+.five-days img {
+    width: 30px;
 }
 
 .sunny {
-    background-color: rgb(123, 206, 225);
+    background-color: rgb(211, 162, 65);
+}
+
+.cloudy {
+    background-color: rgb(88, 156, 172);
 }
 
 .storm {
