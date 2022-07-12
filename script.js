@@ -1,23 +1,23 @@
 
 const cityWeatherEl = $(".city-weather");
 const forecastEl = $("#forecast");
+const optionsEl = $(".options");
 
 var APIKey = "2266e4f4412f39e387b59d7903274cff";
 var url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey + "&units=metric";
 
 var searchHistoryArr = JSON.parse(localStorage.getItem("searchHistoryArr")) || [];
 var city = "";
+var btnCount = 0;
 
 var check = 0;
-
-
-
 
 
 function createElements() {
     cityWeatherEl.append('<h1 id="cityName"></h1>');
     cityWeatherEl.append('<div id="wathertoday"></div>');
     const weatherTodayEl = $("#wathertoday");
+
 
     weatherTodayEl.append("<p> date: </p> <p id='currentDate'></p>");
     weatherTodayEl.append("<p> Temp: </p> <p id='currentTemp'></p>");
@@ -26,7 +26,7 @@ function createElements() {
     weatherTodayEl.append("<p> UV index: </p> <p id='currentUv'></p>");
 
     for (let i = 0; i < 5; i++) {
-        forecastEl.append("<div class='cloudy' id='forecastday" + i + "'></div>");
+        forecastEl.append("<div id='forecastday" + i + "'></div>");
         const forecast = $("#forecastday" + i + "");
 
         forecast.append("<h2 id='date" + i + "'></h2>");
@@ -38,10 +38,13 @@ function createElements() {
 
         forecastEl.append(forecast);
     }
+
+    for (let i = 0; i < searchHistoryArr.length; i++) {
+        btnCount = i;
+        optionsEl.append("<button class='city-options' onclick = 'btnClick(this);' value='" + searchHistoryArr[btnCount].city + "'>" + searchHistoryArr[btnCount].city + "</button>")
+    }
+    optionsEl.append("<button class='clear' onclick='clearHistory()'> clear history </button>")
 }
-
-
-
 
 
 $("#inputCity").on("submit", function apiCall(e) {
@@ -52,32 +55,26 @@ $("#inputCity").on("submit", function apiCall(e) {
     }
 
     url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey + "&units=metric";
-    console.log(url);
     $.ajax({
         url: url,
         method: "GET",
     }).then(function (response) {
         renderValues(response.coord.lat, response.coord.lon, response.name);
-
     });
-    check = 0;
+
+
+    $('input[name="city-input"]').val("");
 });
-
-
-
 
 
 function renderValues(lat, lon, name) {
     var urlforecast = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey + "&units=metric"
-
-    console.log(urlforecast)
     $.ajax({
         url: urlforecast,
         method: "GET"
     }).then(function (response) {
 
-        console.log(response);
-
+        console.log(response)
         $("#cityName").html(name);
         $("#currentDate").html(getDatePrint(response.daily[0].dt));
         $("#currentTemp").html(response.current.temp + " °C");
@@ -86,23 +83,26 @@ function renderValues(lat, lon, name) {
         $("#currentUv").html(response.current.uvi);
 
         for (let i = 0; i < 5; i++) {
+
+            var iconCode = response.daily[i + 1].weather[0].icon;
+            var iconurl = "http://openweathermap.org/img/w/" + iconCode + ".png";
+            $("#icon" + i).attr('src', iconurl);
             $("#date" + i).html(getDatePrint(response.daily[i + 1].dt));
-            $("#tempMax" + i).html(response.daily[i + 1].temp.max + "°C");
-            $("#tempMin" + i).html(response.daily[i + 1].temp.min + "°C");
-            $("#wind" + i).html(response.daily[i + 1].wind_speed + "mph");
-            $("#humidity" + i).html(response.daily[i + 1].humidity + "%");
+            $("#tempMax" + i).html(Math.round(response.daily[i + 1].temp.max) + "°C");
+            $("#tempMin" + i).html(Math.round(response.daily[i + 1].temp.min) + "°C");
+            $("#wind" + i).html(Math.round(response.daily[i + 1].wind_speed) + "mph");
+            $("#humidity" + i).html(Math.round(response.daily[i + 1].humidity) + "%");
 
         }
+
     });
 
 
-    searchHistory()
+    searchHistory(lat, lon)
+    check = 0;
+    //createBtn()
 
-    $('input[name="city-input"]').val("");
 }
-
-
-
 
 
 function getDatePrint(dailyForecast) {
@@ -119,32 +119,57 @@ function getDatePrint(dailyForecast) {
     forecastDay = forecastDate.getDate();
 
     if (forecastMonth <= 9) {
-        month = "0" + forecastMonth
+        month = "0" + forecastMonth;
     } else {
-        month = forecastMonth
+        month = forecastMonth;
     }
     if (forecastDay <= 9) {
-        day = "0" + forecastDay
+        day = "0" + forecastDay;
     } else {
-        day = forecastDay
+        day = forecastDay;
     }
 
-    actualDate = day + "/" + month + "/" + forecastYear
+    actualDate = day + "/" + month + "/" + forecastYear;
     return actualDate;
 }
 
 
+function searchHistory(lat, lon) {
+    var id = Math.round((lat + lon) * 100) / 100;
+    var flag = true;
 
-
-
-function searchHistory() {
-    searchHistoryArr.push(city);
     searchHistoryArr.reverse();
-    localStorage.setItem("searchHistoryArr", JSON.stringify(searchHistoryArr))
+
+    cityObj = {
+        city: city,
+        id: id
+    }
+
+    for (let i = 0; i < searchHistoryArr.length; i++) {
+        if (searchHistoryArr[i].id == id) {
+            console.log("false");
+            flag = false;
+            break
+        } else {
+            flag = true;
+        }
+    }
+
+    if (flag == true) {
+        searchHistoryArr.push(cityObj);
+        btnCount++
+        optionsEl.prepend("<button class='city-options' onclick = 'btnClick(this)' value='" + cityObj.city + "'>" + cityObj.city + "</button>")
+    }
+
+    searchHistoryArr.reverse();
+    localStorage.setItem("searchHistoryArr", JSON.stringify(searchHistoryArr));
 }
 
-window.onload = function () {
-    console.log("hola")
+
+window.onload = historyCity();
+
+
+function historyCity() {
     if (searchHistoryArr.length == 0) {
 
         city = "san luis potosi";
@@ -152,11 +177,24 @@ window.onload = function () {
         $("#inputCity").submit();
     } else {
 
-        city = searchHistoryArr[0]
+        city = searchHistoryArr[0].city;
         check = 1;
         $("#inputCity").submit();
     }
-};
+}
 
+
+function btnClick(e) {
+    city = e.value;
+    console.log(city)
+    check = 1;
+    $("#inputCity").submit();
+}
+
+
+function clearHistory() {
+    localStorage.clear();
+    location.reload();
+}
 
 createElements();

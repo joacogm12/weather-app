@@ -109,8 +109,6 @@ form {
     width: 100%;
 }
 
-
-
 div.scroll {
     overflow: auto;
 }
@@ -139,7 +137,7 @@ div.scroll {
     background: rgb(30, 43, 85);
 }
 
-.search .options button {
+.city-options {
     width: 95%;
     height: 20px;
     color: rgb(30, 43, 85);
@@ -147,6 +145,16 @@ div.scroll {
     border-radius: 5px;
     border-width: 1px;
     background-color: rgba(30, 43, 85, 0);
+}
+
+.clear {
+    width: 95%;
+    height: 20px;
+    color: white;
+    margin: 5px 2.5%;
+    border-radius: 5px;
+    border-width: 1px;
+    background-color: rgb(30, 43, 85);
 }
 
 .five-days {
@@ -170,6 +178,7 @@ div.scroll {
     color: white;
     margin: 0 5px;
     align-items: center;
+    background-color: rgb(88, 156, 172);
 }
 
 .five-days h2 {
@@ -182,16 +191,4 @@ div.scroll {
 
 .five-days img {
     width: 30px;
-}
-
-.sunny {
-    background-color: rgb(211, 162, 65);
-}
-
-.cloudy {
-    background-color: rgb(88, 156, 172);
-}
-
-.storm {
-    background-color: rgb(32, 36, 90);
 }
